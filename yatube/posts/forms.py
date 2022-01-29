@@ -13,7 +13,3 @@ class PostForm(forms.ModelForm):
         if not data:
             raise forms.ValidationError('Введите текст поста')
         return data
-
-
-
-
