@@ -53,9 +53,8 @@ def profile(request, username):
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
     post = Post.objects.get(pk=post_id)
-    author = User.objects.get(username=post.author)
+    author = post.author
     count_posts = author.posts.count()
-    print(type(post))
     context = {
         'post': post,
         'count_posts': count_posts,
