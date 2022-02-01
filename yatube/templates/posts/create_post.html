@@ -8,6 +8,7 @@
           <div class="card-header">
             {% if is_edit %} Редактирование поста {% else %} Новый пост {% endif %}
           </div>
+        <h1>11   {{ form.errors }}</h1>
           <div class="card-body">
             <form method="post"
                   action="{% if is_edit %} {% url 'posts:post_edit' post.pk %} {% else %} {% url 'posts:post_create' %} {% endif %}">

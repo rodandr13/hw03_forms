@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
 
 from .models import Post, Group, User
 from .forms import PostForm
@@ -37,10 +36,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     template = 'posts/profile.html'
-    try:
-        author = User.objects.get(username=username)
-    except Exception:
-        raise Http404
+    author = get_object_or_404(User, username=username)
     post_list = author.posts.all()
     paginator = Paginator(post_list, COUNT_ELEMS)
     page_number = request.GET.get('page')
@@ -66,8 +62,7 @@ def post_create(request):
     template = 'posts/create_post.html'
     form = PostForm(request.POST or None)
     if form.is_valid():
-        new_post = form.save(commit=False)
-        new_post.author = request.user
+        form.instance.author = request.user
         form.save()
         return redirect('posts:profile', request.user)
     context = {
@@ -86,7 +81,8 @@ def post_edit(request, post_id):
     if form.is_valid():
         form.save()
         return redirect('posts:post_detail', post_id=post_id)
-    form = PostForm(instance=post)
+    print('111')
+    print('ПОпал')
     context = {
         'post': post,
         'form': form,
