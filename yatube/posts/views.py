@@ -81,8 +81,6 @@ def post_edit(request, post_id):
     if form.is_valid():
         form.save()
         return redirect('posts:post_detail', post_id=post_id)
-    print('111')
-    print('ПОпал')
     context = {
         'post': post,
         'form': form,
