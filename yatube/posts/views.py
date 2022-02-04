@@ -50,7 +50,7 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
-    post = Post.objects.get(pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     context = {
         'post': post,
     }
@@ -77,7 +77,7 @@ def post_edit(request, post_id):
     template = 'posts/create_post.html'
     form = PostForm(request.POST or None, instance=post)
     if request.user != post.author:
-        return redirect('posts:post_detail', post_id=post.id)
+        return redirect('posts:post_detail', post_id=post_id)
     if form.is_valid():
         form.save()
         return redirect('posts:post_detail', post_id=post_id)
