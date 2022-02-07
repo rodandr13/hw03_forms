@@ -12,10 +12,6 @@ class PostForm(forms.ModelForm):
             'text': _('Текст поста'),
             'group': 'Группа',
         }
-        help_texts = {
-            'text': 'Текст нового поста',
-            'group': 'Группа, к которой будет относиться пост',
-        }
 
     def clean_text(self):
         data = self.cleaned_data['text']
