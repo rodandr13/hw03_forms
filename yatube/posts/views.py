@@ -10,6 +10,7 @@ COUNT_ELEMS = 10
 
 def index(request):
     template = 'posts/index.html'
+    test = 'sdfsdfsdf'
     post_list = Post.objects.all()
     paginator = Paginator(post_list, COUNT_ELEMS)
     page_number = request.GET.get('page')
@@ -21,12 +22,12 @@ def index(request):
 
 
 def group_posts(request, slug):
+    template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
     post_list = group.posts.all()
     paginator = Paginator(post_list, COUNT_ELEMS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    template = 'posts/group_list.html'
     context = {
         'group': group,
         'page_obj': page_obj,
@@ -73,8 +74,8 @@ def post_create(request):
 
 @login_required
 def post_edit(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
     template = 'posts/create_post.html'
+    post = get_object_or_404(Post, id=post_id)
     form = PostForm(request.POST or None, instance=post)
     if request.user != post.author:
         return redirect('posts:post_detail', post_id=post_id)

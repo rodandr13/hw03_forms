@@ -58,8 +58,8 @@ class StaticPageURLTesting(TestCase):
             '/group/test-slug/': 200,
             '/profile/auth/': 200,
             '/posts/1/': 200,
-            '/posts/1/edit/': 302,
             '/create/': 302,
+            '/posts/1/edit/': 302,
         }
         for url, code in url_status_codes.items():
             with self.subTest(url=url):
