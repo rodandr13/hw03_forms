@@ -10,7 +10,6 @@ COUNT_ELEMS = 10
 
 def index(request):
     template = 'posts/index.html'
-    test = 'sdfsdfsdf'
     post_list = Post.objects.all()
     paginator = Paginator(post_list, COUNT_ELEMS)
     page_number = request.GET.get('page')

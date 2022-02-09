@@ -142,15 +142,10 @@ class PaginatorViewsTest(TestCase):
             slug='test-slug',
             description='Тестовое описание',
         )
-        cls.post = Post.objects.create(
-            author=cls.user,
-            text='Тестовый пост',
-            group=cls.group,
-        )
-        for post in range(1, 17):
-            Post.objects.create(
+        for post in range(0, 17):
+            cls.post = Post.objects.create(
                 author=cls.user,
-                text=f'Тестовый пост {post}',
+                text=f'Тестовый пост{post}',
                 group=cls.group,
             )
 
@@ -169,4 +164,3 @@ class PaginatorViewsTest(TestCase):
             reverse('posts:index') + '?page=2'
         )
         self.assertEqual(len(response.context['page_obj']), 7)
-
